@@ -1,14 +1,18 @@
-import {StatusBar} from 'expo-status-bar';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Task1} from "./src/task1/Task1";
+import {StyleSheet, View} from 'react-native';
+import {Provider} from 'react-redux';
+import {store} from './src/task1/store';
+import RequestUsers from './src/task1/RequestUsers';
+
 
 export default function App() {
+
     return (
-        <View>
-            <Task1/>
-            <StatusBar style="auto"/>
-        </View>
+        <Provider store={store}>
+            <View style={styles.container}>
+                <RequestUsers/>
+            </View>
+        </Provider>
     );
 }
 
@@ -16,8 +20,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: '#fff'
     },
 });

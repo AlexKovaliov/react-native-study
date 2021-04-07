@@ -13,7 +13,7 @@ export const Navbar = React.memo((props: { title: string }) => {
 
 const styles = StyleSheet.create({
     navbar: {
-        height: 150,
+        height: 70,
         width: '100%',
         alignItems: "center",
         justifyContent: "flex-end",
