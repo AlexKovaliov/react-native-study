@@ -1,6 +1,6 @@
 import React from "react";
-import {FlatList, StyleSheet} from "react-native";
-import {UsersType} from "./api/users-api";
+import {FlatList} from "react-native";
+import {UsersType} from "../api/users-api";
 import {UsersList} from "./UsersList";
 
 
@@ -14,16 +14,8 @@ export const Users = React.memo((props: PropsType) => {
             data={props.users}
             keyExtractor={item => String(item.id)}
             renderItem={({item}) => (
-                <UsersList first_name={item.first_name}
-                      last_name={item.last_name}
-                      email={item.email}
-                      avatar={item.avatar}
-                />
+                <UsersList user={item}/>
             )}>
         </FlatList>
     );
 })
-
-const styles = StyleSheet.create({
-    container: {},
-});

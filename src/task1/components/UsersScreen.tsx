@@ -1,16 +1,18 @@
 import {StatusBar} from 'expo-status-bar';
 import React, {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {UsersType} from './api/users-api';
-import {AppRootStateType} from './store';
+import {UsersType} from '../api/users-api';
+import {AppRootStateType} from '../store';
 import {Users} from "./Users";
-import {getUsersThunkCreator} from "./users-reducer";
-import {Navbar} from "./Navbar";
+import {getUsersThunkCreator} from "../reducers/users-reducer";
+import {RequestStatusType} from "../reducers/app-reducer";
 
-export default function RequestUsers() {
+
+export default function UsersScreen() {
 
     const users = useSelector<AppRootStateType, Array<UsersType>>(state => state.user)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,7 +21,7 @@ export default function RequestUsers() {
 
     return (
         <View style={styles.container}>
-            <Navbar title={"Users"}/>
+            {status === 'loading' && <ActivityIndicator size="large"/>}
             <Users users={users}/>
             <StatusBar style="auto"/>
         </View>

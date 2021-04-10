@@ -1,20 +1,40 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Button, StyleSheet} from 'react-native';
 import {Provider} from 'react-redux';
 import {store} from './src/task1/store';
-import RequestUsers from './src/task1/RequestUsers';
+import UsersScreen from './src/task1/components/UsersScreen';
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
+import {PersonScreen} from './src/task1/components/PersonScreen';
 
 
-export default function App() {
+const Stack = createStackNavigator()
+export default function App({navigation}: any) {
 
     return (
         <Provider store={store}>
-            <View style={styles.container}>
-                <RequestUsers/>
-            </View>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName='Users'>
+                    <Stack.Screen name='Users'
+                                  component={UsersScreen}
+                                  options={{
+                                      title: 'Users',
+                                      headerStyle: {backgroundColor: '#3949ab'},
+                                      headerTintColor: '#fff'
+                                  }}/>
+                    <Stack.Screen name='Person'
+                                  component={PersonScreen}
+                                  options={{
+                                      title: 'Person Room',
+                                      headerStyle: {backgroundColor: '#3949ab'},
+                                      headerTintColor: '#fff',
+                                  }}/>
+                </Stack.Navigator>
+            </NavigationContainer>
         </Provider>
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {

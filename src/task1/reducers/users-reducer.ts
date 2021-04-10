@@ -1,9 +1,11 @@
 import {Dispatch} from "redux";
-import {usersAPI, UsersType} from "./api/users-api";
+import {usersAPI, UsersType} from "../api/users-api";
+import {setStatusAC} from "./app-reducer";
 
 export type GetUsersActionType = {
     type: 'GET-USERS',
     users: Array<UsersType>
+
 }
 
 type ActionsType = GetUsersActionType
@@ -21,16 +23,17 @@ export const usersReducer = (state: Array<UsersType> = initialState, action: Act
 
 }
 
-
 export const getUsersActionCreator = (users: Array<UsersType>): GetUsersActionType => {
     return {type: 'GET-USERS', users}
 }
 
 export const getUsersThunkCreator = () => {
     return (dispatch: Dispatch) => {
+        dispatch(setStatusAC('loading'))
         usersAPI.getUsers()
             .then((res) => {
                 dispatch(getUsersActionCreator(res.data))
+                dispatch(setStatusAC('succeeded'))
             })
     }
 }
